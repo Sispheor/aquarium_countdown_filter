@@ -48,3 +48,17 @@ Example of updateInterval:
 - **4h**: stop the counter after 4 hours
 - **30m**: stop the counter after 30 minutes
 - **10s**: stop the counter after 10 seconds
+
+## Add to the startup (systemd based system)
+
+Copy the service file. (Edit path in the script if needed)
+```
+cp countdown.service /etc/systemd/system/countdown.service
+```
+
+Enable and start
+```
+systemctl daemon-reload
+systemctl enable countdown
+systemctl start countdown
+```
