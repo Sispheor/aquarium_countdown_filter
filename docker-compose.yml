@@ -1,9 +1,32 @@
-
-
 version: '3.7'
-
 services:
   redis:
     image: redis:4.0.11-alpine
     ports:
       - '6379:6379'
+
+  web:
+    build: .
+    image: web
+    container_name: web
+    ports:
+      - '5000:5000'
+    command: "python manage.py run -h 0.0.0.0"
+    volumes:
+      - .:/usr/src/app
+    environment:
+      FLASK_DEBUG: "1"
+      MEROSS_DEVICE: "Aquarium"
+      MEROSS_CHANNEL: "3"
+      MEROSS_EMAIL: "set.this@gmail.com"
+      MEROSS_PASSWORD: 'secret_password'
+    depends_on:
+      - redis
+
+  worker:
+    image: web
+    command: "python manage.py run_worker"
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - redis
