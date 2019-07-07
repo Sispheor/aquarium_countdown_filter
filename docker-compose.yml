@@ -2,6 +2,7 @@ version: '3.7'
 services:
   redis:
     image: redis:4.0.11-alpine
+    container_name: redis
     ports:
       - '6379:6379'
 
@@ -25,6 +26,7 @@ services:
 
   worker:
     image: web
+    container_name: worker
     command: "python manage.py run_worker"
     volumes:
       - .:/usr/src/app

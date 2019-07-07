@@ -43,7 +43,13 @@ def create_app():
             conn1 = Redis('redis', 6379)
             with Connection(conn1):
                 q = Queue('default')
-                task = q.enqueue(countdown_task, meross_device, meross_channel, meross_email, meross_password, seconds)
+                task = q.enqueue(countdown_task,
+                                 meross_device,
+                                 meross_channel,
+                                 meross_email,
+                                 meross_password,
+                                 seconds,
+                                 job_timeout=seconds+10)
 
             response_object = {
                 'status': 'success',

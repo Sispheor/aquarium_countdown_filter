@@ -1,3 +1,5 @@
+# docker build --force-rm -t web .
+
 # base image
 FROM python:3.6.0-alpine
 
